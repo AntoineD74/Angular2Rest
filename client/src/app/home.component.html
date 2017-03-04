@@ -1,0 +1,15 @@
+
+    <md-card class="signin-card">
+      <md-card-title>
+        Bienvenue !
+      </md-card-title>
+      <md-card-content>
+        <p *ngIf="!isLoggedIn()">
+          Vous n'êtes pas connecté !
+          <br />
+          <br />
+          Pour profiter des fonctionnalités du projet,
+          veuillez-vous <a [routerLink]="['/signin']">connecter</a> ou <a [routerLink]="['/signup']">créer un compte</a> !
+        </p>
+      </md-card-content>
+    </md-card>
