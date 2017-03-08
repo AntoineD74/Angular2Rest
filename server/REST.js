@@ -111,6 +111,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
       jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
         console.log(err);
         console.log(decoded);
+        console.log(getToken(req.rawHeaders));
         if(err){
           res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
         }else{
@@ -300,15 +301,16 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
       });
   });
 
-    router.get("/clients/:user_id",function(req,res){
+    router.get("/accounts/:user_id",function(req,res){
+        console.log("JE suis dans account/id")
         jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
         console.log(err);
         console.log(decoded);
         if(err){
           res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
         }else{
-            /*var query = "SELECT * FROM ?? WHERE ?? = ?";
-            var table = ["users_usr", "usr_id", decoded.id];
+            var query = "SELECT * FROM ?? WHERE ?? = ?";
+            var table = ["accounts_acc", "usr_id", decoded.id];
             query = mysql.format(query,table);
             console.log(query);
             connection.query(query,function(err,results,fields){
@@ -319,7 +321,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                     res.json({"Error" : false, "Message" : "Success", "Users" : results});
                     console.log(results);
                 }
-            });*/
+            });
 
         }
         });
