@@ -18,9 +18,10 @@ export class AccountsComponent implements OnInit {
     )
     {}
 
-  accounts = [new Account(0,'',0,0,0), new Account(0,'',0,0,0)];
+  accounts = [, new Account(0,'',0,0,0)];
 
   ngOnInit(): void {
+    console.log("Init Accounts Component");
     let that = this;
     this.accService.getMyAccounts().subscribe(
       function(response){
@@ -30,6 +31,20 @@ export class AccountsComponent implements OnInit {
             that.authService.logout();
           }
         }else{
+          console.log(response.Accounts);
+          that.accounts = [];
+          for(var acc in response.Accounts){
+            console.log(acc);
+            that.accounts.push(new Account(0,'',0,0,0));
+            that.accounts[acc].id = response.Accounts[acc].acc_id;
+            that.accounts[acc].date = response.Accounts[acc].acc_date;
+            that.accounts[acc].solde = response.Accounts[acc].acc_solde;
+            that.accounts[acc].actions = response.Accounts[acc].acc_actions;
+            that.accounts[acc].type = response.Accounts[acc].acc_type;
+            console.log(that.accounts[acc]);
+          }
+          console.log(that.accounts);
+          /*
           that.accounts[0].id = response.Accounts[0].acc_id;
           that.accounts[0].date = response.Accounts[0].acc_date;
           that.accounts[0].solde = response.Accounts[0].acc_solde;
@@ -40,8 +55,8 @@ export class AccountsComponent implements OnInit {
           that.accounts[1].date = response.Accounts[1].acc_date;
           that.accounts[1].solde = response.Accounts[1].acc_solde;
           that.accounts[1].actions = response.Accounts[1].acc_actions;
-          that.accounts[1].type = response.Accounts[1].acc_type;
-          console.log(that.accounts);
+          that.accounts[1].type = response.Accounts[1].acc_type;*/
+          //console.log(that.accounts);
         }
       }
     )

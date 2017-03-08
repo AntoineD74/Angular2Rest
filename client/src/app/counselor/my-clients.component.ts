@@ -23,6 +23,7 @@ export class MyClientsComponent implements OnInit {
   clients: User[];
 
   ngOnInit(){
+    console.log("Init MyClients Component");
     this.usrService.getMyClients()
       .subscribe
       (

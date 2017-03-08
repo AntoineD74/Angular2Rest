@@ -23,4 +23,12 @@ export class AccountsService {
     return this.http.get(that.accountsUrl, options)
             .map((response: Response) => response.json());
   }
+
+  getMyOperations(int acc_id){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    let options = new RequestOptions({ headers: headers });
+    let that = this;
+    return this.http.get(that.accountsUrl, options)
+            .map((response: Response) => response.json());
+  }
 }

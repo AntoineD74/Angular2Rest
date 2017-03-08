@@ -39,6 +39,13 @@ export class UserService {
             .map((response: Response) => response.json());
   }
 
+  getAllUsers(){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.usersUrl+'/all', options)
+            .map((response: Response) => response.json());
+  }
+
   addNewUser(user:User){
     let headers = new Headers();
       headers.append('Content-Type', 'application/json');
