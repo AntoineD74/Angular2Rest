@@ -228,6 +228,92 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
             }
         });
     });
+
+router.get("/clients",function(req,res){
+    console.log("je suis dans client");
+        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log("error" + err);
+        console.log("decode" + decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+            if(decoded.usr_role == 1){
+                console.log("num role ---->" +decoded.usr_role)
+                var query = "SELECT * FROM ?? WHERE ?? = ?";
+                var table = ["users_usr", "usr_counselorid", decoded.id];
+                query = mysql.format(query,table);
+                console.log(query);
+                connection.query(query,function(err,results,fields){
+                    if(err) {
+                        res.json({"Error" : true, "Message" : err.code });
+                        console.log(err.message);
+                    } else {
+                        res.json({"Error" : false, "Message" : "Success", "Users" : results});
+                        console.log(results);
+                    }
+                });
+
+            }
+else if(decoded.usr_role == 2){
+                console.log("num role ---->" +decoded.usr_role)
+                var query = "SELECT * FROM ?? ";
+                var table = ["users_usr"];
+                query = mysql.format(query,table);
+                console.log(query);
+                connection.query(query,function(err,results,fields){
+                    if(err) {
+                        res.json({"Error" : true, "Message" : err.code });
+                        console.log(err.message);
+                    } else {
+                        res.json({"Error" : false, "Message" : "Success", "Users" : results});
+                        console.log(results);
+                    }
+                });
+
+            /*var query = "SELECT * FROM ?? WHERE ?? = ?";
+            var table = ["users_usr", "usr_id", decoded.id];
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results,fields){
+                if(err) {
+                    res.json({"Error" : true, "Message" : err.code });
+                    console.log(err.message);
+                } else {
+                    res.json({"Error" : false, "Message" : "Success", "Users" : results});
+                    console.log(results);
+                }
+            });*/
+        }
+    }
+
+        });
+    });
+
+router.get("/clients/:user_id",function(req,res){
+        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+            /*var query = "SELECT * FROM ?? WHERE ?? = ?";
+            var table = ["users_usr", "usr_id", decoded.id];
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results,fields){
+                if(err) {
+                    res.json({"Error" : true, "Message" : err.code });
+                    console.log(err.message);
+                } else {
+                    res.json({"Error" : false, "Message" : "Success", "Users" : results});
+                    console.log(results);
+                }
+            });*/
+            
+        }
+        });
+    });
+
 }
 
 module.exports = REST_ROUTER;
