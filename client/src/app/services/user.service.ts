@@ -10,7 +10,9 @@ import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class UserService {
+
   private usersUrl = 'http://localhost:3000/api/users';  // URL to web API
+  private clientsUrl = 'http://localhost:3000/api/clients';  // URL to web API
   constructor (
     private http: Http,
     private authService: AuthenticationService
@@ -27,6 +29,13 @@ export class UserService {
     let headers = new Headers({ 'Authorization': this.authService.token });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.usersUrl+'/profile', options)
+            .map((response: Response) => response.json());
+  }
+
+  getMyClients(){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.clientsUrl, options)
             .map((response: Response) => response.json());
   }
 

@@ -17,6 +17,7 @@ import { ProfileEditComponent, ProfileEditDialog } from './user/profile-edit.com
 import { AccountsComponent } from './client/accounts.component';
 import { AccountComponent } from './client/account.component';
 
+import { MyClientsComponent } from './counselor/my-clients.component';
 
 import { UserService } from './services/user.service';
 import { AccountsService } from './services/accounts.service';
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
     component: AccountsComponent
   },
   {
+    path: 'clients',
+    component: MyClientsComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -65,7 +70,8 @@ const appRoutes: Routes = [
     ProfileEditComponent,
     ProfileEditDialog,
     AccountsComponent,
-    AccountComponent
+    AccountComponent,
+    MyClientsComponent
   ],
   imports: [
     BrowserModule,
