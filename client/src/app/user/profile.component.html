@@ -1,0 +1,62 @@
+<div class="w3-panel">
+  <div class="w3-row">
+    <div class="w3-col s10 m8 l6 centered">
+      <div class="w3-container w3-center w3-white w3-border w3-border-purple shadow">
+        <h1 class = "w3-light-grey">
+          Votre profil
+        </h1>
+        <div class="w3-container">
+          <label>Mail</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.mail}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Mot de passe</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            ********
+          </div>
+          <br />
+        </div>
+        <div class="w3-container">
+          <label>Nom</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.name}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Prénom</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.firstname}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Adresse</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.addr}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Code Postal</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.postalcode}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Ville</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            {{user.city}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Télephone</label>
+          <div class="value-profile w3-leftbar w3-border-purple">
+            0{{user.phone}}
+          </div>
+        </div>
+
+        <button [routerLink]="['/profile/edit']" md-button>Editer vos informations<md-icon>edit</md-icon></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<md-card>
+  <md-card-title *ngIf="account.type == 0">Compte chèques</md-card-title>
+  <md-card-title *ngIf="account.type == 1">Livret A</md-card-title>
+  <md-card-content>
+    <div class="w3-container">
+      <label>Date d'ouverture</label>
+      <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+        {{account.date}}
+      </div>
+    </div>
+    <div class="w3-container">
+      <label>Solde</label>
+      <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+        {{account.solde}}€
+      </div>
+    </div>
+    <div *ngIf="account.type == 1" class="w3-container">
+      <label>Actions "Pomme"</label>
+      <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+        {{account.actions}}
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

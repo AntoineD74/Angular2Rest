@@ -1,0 +1,41 @@
+<div class="w3-panel">
+  <div class="w3-row">
+    <div class="w3-col s10 m8 l6 centered">
+      <div class="w3-container w3-center w3-white w3-border w3-border-purple shadow">
+        <h1 class = "w3-light-grey">
+          Se connecter
+        </h1>
+        <form (ngSubmit)="onSubmit()" novalidate #signinForm="ngForm">
+          <div class="form-group">
+            <md-input-container>
+              <input type="email" pattern="^.{3,}@.{3,}\.[a-z]{2,4}$" mdInput class="form-control" [(ngModel)]="signin.mail" name="mail"  required placeholder="Votre mail" #mail="ngModel">
+              <md-hint *ngIf="!mail.valid && !mail.pristine" align="end" class="w3-text-red">Mail invalide</md-hint>
+              <md-hint *ngIf="!mailExists && !(!mail.valid && !mail.pristine)" align="end" class="w3-text-red">Mail inconnu</md-hint>
+            </md-input-container>
+
+            <br/>
+            <md-input-container>
+              <input type="password" mdInput class="form-control" [(ngModel)]="signin.pwd" name="pwd" required placeholder="Votre mot de passe">
+              <md-hint *ngIf="wrgPwd" align="end" class="w3-text-red">Mot de passe inconrrect</md-hint>
+            </md-input-container>
+            <br />
+            <div *ngIf="errServer">
+              <p class="w3-text-red">
+                Erreur connexion serveur, réessayer
+              </p>
+              <br />
+            </div>
+            <button [disabled] ="!signinForm.valid" type="submit" md-button color="primary">Connexion</button>
+            <br />
+            <p>
+              Vous n'avez pas de compte ?
+              <br/>
+              <a class="w3-text-purple" [routerLink]="['/signup']">Inscrivez-vous</a>
+              <br/>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

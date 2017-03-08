@@ -21,6 +21,10 @@
   text-align: center;
 }
 
+.mat-input-container{
+  width: 60%;
+}
+
 md-sidenav {
   width: 250px;
 }
@@ -31,6 +35,27 @@ html, body, material-app, md-sidenav-container, .my-content {
   height: 100%;
 }
 
-md-card{
-  height: 100%;
+.centered{
+  float: none;
+  margin: auto;
+  padding-top: 140px;
+  padding-bottom: 140px;
+}
+
+.shadow{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.value-profile{
+  width: 60%;
+  display: inline-block;
+  margin-right: 0px;
+  float:right;
+}
+
+.account-container{
+  height: 300px;
+  display: block;
+  width: 100%;
 }

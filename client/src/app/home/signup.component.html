@@ -1,0 +1,64 @@
+<div class="w3-panel">
+  <div class="w3-row">
+    <div class="w3-col s10 m8 l6 centered">
+      <div class="w3-container w3-center w3-white w3-border w3-border-purple shadow">
+        <h1 class = "w3-light-grey">
+          S'inscrire
+        </h1>
+        <form (ngSubmit)="onSubmit()" novalidate #usrForm="ngForm">
+          <div class="form-group">
+            <md-input-container>
+              <input type="email" pattern="^.{3,}@.{3,}\.[a-z]{2,4}$" id="mail" mdInput class="form-control" [(ngModel)]="user.mail" name="mail" required placeholder="Votre mail" #mail="ngModel">
+              <md-hint *ngIf="!mail.valid && !mail.pristine" align="end" class="w3-text-red">Mail invalide</md-hint>
+              <md-hint *ngIf="usrExists && !(!mail.valid && !mail.pristine)" align="end" class="w3-text-red">Mail déjà enregistré</md-hint>
+            </md-input-container>
+            <br/>
+            <md-input-container>
+              <input mdInput type="password" pattern="^.{5,16}$" class="form-control" [(ngModel)]="user.pwd" name="pwd"  required placeholder="Votre mot de passe" #pwd="ngModel">
+              <md-hint *ngIf="!pwd.valid && !pwd.pristine" align="end" class="w3-text-red">Mot de passe invalide (5 à 16 caractères)</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <input type="text" mdInput pattern="^[a-zA-Z\- ]{2,20}$" class="form-control" [(ngModel)]="user.name" name="name"  required placeholder="Votre nom" #name="ngModel">
+              <md-hint *ngIf="!name.valid && !name.pristine" align="end" class="w3-text-red">Nom invalide (2 à 20 caractères)</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <input type="text" mdInput pattern="^[a-zA-Z\- ]{2,20}$" class="form-control" [(ngModel)]="user.firstname" name="firstname"  required placeholder="Votre prénom" #firstname="ngModel">
+              <md-hint *ngIf="!firstname.valid && !firstname.pristine" align="end" class="w3-text-red">Prénom invalide (2 à 20 caractères)</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <textarea mdInput class="form-control" pattern="^[0-9a-zA-Z\- ]{10,}$" [(ngModel)]="user.addr" name="addr"  required placeholder="Votre adresse" #addr="ngModel"></textarea>
+              <md-hint *ngIf="!addr.valid && !addr.pristine" align="end" class="w3-text-red">Adresse invalide(10 caractères min)</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <input type="text" mdInput class="form-control" pattern="^[0-9]{5}$" [(ngModel)]="user.postalcode" name="postalcode"  required placeholder="Votre code postal" #postalcode="ngModel">
+              <md-hint *ngIf="!postalcode.valid && !postalcode.pristine" align="end" class="w3-text-red">Code postal invalide</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <input type="text" mdInput class="form-control" pattern="^[a-zA-Z\- ]{3,50}$" [(ngModel)]="user.city" name="city"  required placeholder="Votre ville" #city="ngModel">
+              <md-hint *ngIf="!city.valid && !city.pristine" align="end" class="w3-text-red">Ville invalide (3 à 50 caractères)</md-hint>
+            </md-input-container>
+            <br />
+            <md-input-container>
+              <input type="text" mdInput class="form-control" pattern="^0[0-9]{9}$" [(ngModel)]="user.phone" name="phone" #phone="ngModel"  required placeholder="Votre numéro de télephone">
+              <md-hint *ngIf="!phone.valid && !phone.pristine" align="end" class="w3-text-red">Télephone invalide (modèle - 0XXXXXXXXX)</md-hint>
+            </md-input-container>
+            <br />
+            <div *ngIf="errServer">
+              <p class="w3-text-red">
+                Erreur connexion serveur, réessayer
+              </p>
+              <br />
+            </div>
+            <button [disabled] ="!usrForm.valid" type="submit" md-button color="primary">Créer !</button>
+            <br/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

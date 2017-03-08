@@ -4,15 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
-import { SignInComponent } from './signin.component';
-import { SignUpComponent } from './signup.component';
+import { HomeComponent } from './home/home.component';
+import { SignInComponent } from './home/signin.component';
+import { SignUpComponent, SignupDialog } from './home/signup.component';
 
-import { UserService } from './user.service';
+import { ProfileComponent } from './user/profile.component';
+import { ProfileEditComponent, ProfileEditDialog } from './user/profile-edit.component';
+
+import { AccountsComponent } from './client/accounts.component';
+import { AccountComponent } from './client/account.component';
+
+
+import { UserService } from './services/user.service';
+import { AccountsService } from './services/accounts.service';
+import { AuthenticationService } from './services/authentication.service';
 
 const appRoutes: Routes = [
   {
@@ -28,6 +36,18 @@ const appRoutes: Routes = [
     component: SignUpComponent
   },
   {
+    path: 'profile/edit',
+    component: ProfileEditComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
+    path: 'accounts',
+    component: AccountsComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -39,17 +59,30 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignupDialog,
+    ProfileComponent,
+    ProfileEditComponent,
+    ProfileEditDialog,
+    AccountsComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterialModule,
-    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    AccountsService,
+    AuthenticationService
+  ],
+  entryComponents: [
+    SignupDialog,
+    ProfileEditDialog
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,32 +1,39 @@
-<md-toolbar color="primary">
-  <button md-button [routerLink]="['/home']">{{title}}</button>
+  <md-toolbar color="primary">
+    <button md-button [routerLink]="['/home']">{{title}}</button>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-space"></span>
-  <div *ngIf="!isLoggedIn()">
-    <md-menu #appMenu="mdMenu">
-      <button md-menu-item [routerLink]="['/signin']"> Se connecter</button>
-      <button md-menu-item [routerLink]="['/signup']"> S'inscrire</button>
-    </md-menu>
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-space"></span>
+    <div *ngIf="!isLoggedIn()">
+      <md-menu #appMenu="mdMenu">
+        <button md-menu-item [routerLink]="['/signin']"> Se connecter</button>
+        <button md-menu-item [routerLink]="['/signup']"> S'inscrire</button>
+      </md-menu>
 
-    <button md-button [mdMenuTriggerFor]="appMenu">
-       Compte
-    </button>
-  </div>
-</md-toolbar>
-<md-sidenav-container>
-  <md-sidenav *ngIf="isLoggedIn()" #sidenav mode="side" opened="true">
-    <md-nav-list>
-       <a md-list-item href="#">Mes comptes</a>
-       <a md-list-item href="#">Mes opérations</a>
-    </md-nav-list>
-  </md-sidenav>
-  <md-card>
-    <md-card-content>
-      <router-outlet></router-outlet>
-    </md-card-content>
-  </md-card>
-</md-sidenav-container>
-<md-toolbar color="primary">
-  <span>Powered by Antoine Dancre & Kim Sang Do, Ingesup M1 - {{title}} ©</span>
-</md-toolbar>
+      <button md-button [mdMenuTriggerFor]="appMenu">
+         Compte
+      </button>
+    </div>
+    <div *ngIf="isLoggedIn()">
+      <button md-button (click)="logOut()">
+         Se déconnecter
+      </button>
+    </div>
+  </md-toolbar>
+  <md-sidenav-container>
+    <md-sidenav *ngIf="isLoggedIn()" #sidenav mode="side" opened="true">
+      <md-nav-list>
+         <a md-list-item [routerLink]="['/profile']">Mon profil</a>
+         <a md-list-item *ngIf="role == 0" [routerLink]="['/accounts']">Mes comptes</a>
+         <a md-list-item *ngIf="role >= 1" [routerLink]="['/accounts']">Mes clients</a>
+         <a md-list-item *ngIf="role == 2" [routerLink]="['/accounts']">Utilisateurs</a>
+         <a md-list-item *ngIf="role == 2" [routerLink]="['/accounts']">Clients</a>
+         <a md-list-item *ngIf="role == 2" [routerLink]="['/accounts']">Conseillers</a>
+      </md-nav-list>
+    </md-sidenav>
+    <router-outlet></router-outlet>
+  </md-sidenav-container>
+  <md-toolbar color="primary">
+    <div class="w3-container">
+      <p>Powered by Antoine Dancre & Kim Sang Do, Ingesup M1 - {{title}} ©</p>
+    </div>
+  </md-toolbar>
