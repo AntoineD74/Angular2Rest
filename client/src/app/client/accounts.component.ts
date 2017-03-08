@@ -18,7 +18,7 @@ export class AccountsComponent implements OnInit {
     )
     {}
 
-  accounts = [, new Account(0,'',0,0,0)];
+  accounts:Account[];
 
   ngOnInit(): void {
     console.log("Init Accounts Component");
@@ -44,21 +44,8 @@ export class AccountsComponent implements OnInit {
             console.log(that.accounts[acc]);
           }
           console.log(that.accounts);
-          /*
-          that.accounts[0].id = response.Accounts[0].acc_id;
-          that.accounts[0].date = response.Accounts[0].acc_date;
-          that.accounts[0].solde = response.Accounts[0].acc_solde;
-          that.accounts[0].actions = response.Accounts[0].acc_actions;
-          that.accounts[0].type = response.Accounts[0].acc_type;
-
-          that.accounts[1].id = response.Accounts[1].acc_id;
-          that.accounts[1].date = response.Accounts[1].acc_date;
-          that.accounts[1].solde = response.Accounts[1].acc_solde;
-          that.accounts[1].actions = response.Accounts[1].acc_actions;
-          that.accounts[1].type = response.Accounts[1].acc_type;*/
-          //console.log(that.accounts);
         }
       }
-    )
+    );
   }
 }

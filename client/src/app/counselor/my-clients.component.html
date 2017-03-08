@@ -1,1 +1,13 @@
 <h1>Vos clients</h1>
+<div class="w3-container">
+  <md-card *ngFor="let usr of users">
+    <md-card-title>
+      {{usr.firstname}} {{usr.name}}
+      <div class="w3-text-right">
+        <button md-icon-button (click)="getAccounts(usr.id)"><md-icon>add</md-icon></button>
+      </div>
+
+    </md-card-title>
+    <br />
+  </md-card>
+</div>
