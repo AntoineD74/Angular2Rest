@@ -356,7 +356,32 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
+router.get("/operations/:user_id",function(req,res){
+        console.log("JE suis dans operations/:id")
+        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+            if(decoded.role  <= 2)
+            var query = "SELECT * FROM ?? WHERE ?? = ?";
+            var table = ['operations_ope', 'acc_id', decoded.id];
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results,fields){
+                if(err) {
+                    res.json({"Error" : true, "Message" : err.code });
+                    console.log(err.message);
+                } else {
+                    res.json({"Error" : false, "Message" : "Success", "Operations" : results});
+                    console.log(results);
+                }
+            });
 
+        }
+        });
+    });
 
 }
 
