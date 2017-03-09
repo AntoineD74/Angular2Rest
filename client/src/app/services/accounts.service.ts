@@ -48,4 +48,12 @@ export class AccountsService {
     return this.http.get(that.accountsUrl, options)
             .map((response: Response) => response.json());
   }
+
+  searchAccounts(){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    let options = new RequestOptions({ headers: headers });
+    let that = this;
+    return this.http.get(that.accountsUrl+'/all', options)
+            .map((response: Response) => response.json());
+  }
 }

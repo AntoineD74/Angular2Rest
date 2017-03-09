@@ -1,25 +1,25 @@
 <div class="w3-panel">
-  <md-card>
-    <md-card-title>
-      <h1>
-        Bienvenue !
-      </h1>
-    </md-card-title>
-    <md-card-content>
-      <p *ngIf="!isLoggedIn()">
-        Vous n'êtes pas connecté !
-        <br />
-        <br />
-        Pour profiter des fonctionnalités du projet,
-        veuillez-vous <a class="w3-text-purple" [routerLink]="['/signin']">connecter</a> ou <a class="w3-text-purple" [routerLink]="['/signup']">créer un compte</a> !
-      </p>
-      <p *ngIf="isLoggedIn()">
-        Vous êtes connecté !
-        <br />
-        <br />
-        Accedez à l'onglet <a class="w3-text-purple" [routerLink]="['/']">Mes comptes</a> ou
-        <a class="w3-text-purple" [routerLink]="['/']">Mes opérations</a> !
-      </p>
-    </md-card-content>
-  </md-card>
+  <h1>
+    Bienvenue !
+  </h1>
+  <div class="w3-container">
+    <md-card>
+      <md-card-content>
+        <p *ngIf="!isLoggedIn()">
+          Vous n'êtes pas connecté !
+          <br />
+          <br />
+          Pour profiter des fonctionnalités du projet,
+          veuillez-vous <a class="w3-text-purple" [routerLink]="['/signin']">connecter</a> ou <a class="w3-text-purple" [routerLink]="['/signup']">créer un compte</a> !
+        </p>
+        <p *ngIf="isLoggedIn()">
+          Vous êtes connecté !
+          <br />
+          <br />
+          Accedez à l'onglet <a class="w3-text-purple" [routerLink]="['/']">Mes comptes</a> ou
+          <a class="w3-text-purple" [routerLink]="['/']">Mes opérations</a> !
+        </p>
+      </md-card-content>
+    </md-card>
+  </div>
 </div>

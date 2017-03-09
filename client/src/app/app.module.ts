@@ -15,7 +15,7 @@ import { ProfileComponent } from './user/profile.component';
 import { ProfileEditComponent, ProfileEditDialog } from './user/profile-edit.component';
 
 import { AccountsComponent } from './client/accounts.component';
-import { AccountComponent } from './client/account.component';
+import { AccountComponent, NewOperationDialog } from './client/account.component';
 
 import { MyClientsComponent } from './counselor/my-clients.component';
 
@@ -77,6 +77,7 @@ const appRoutes: Routes = [
     ProfileEditDialog,
     AccountsComponent,
     AccountComponent,
+    NewOperationDialog,
     MyClientsComponent,
     UsersComponent
   ],
@@ -94,7 +95,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     SignupDialog,
-    ProfileEditDialog
+    ProfileEditDialog,
+    NewOperationDialog
   ],
   bootstrap: [AppComponent]
 })

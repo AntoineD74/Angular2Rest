@@ -39,9 +39,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `dashboard`.`operations_ope` (
   `ope_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `acc_id_deb` INT UNSIGNED NOT NULL,
-  `acc_id_cred` INT UNSIGNED NOT NULL,
+  `acc_id_cred` INT UNSIGNED NULL,
   `ope_montant` INT NOT NULL,
   `ope_date` DATETIME NOT NULL,
+  `ope_desc` VARCHAR(100) NULL DEFAULT 'Achat actions \"Pomme\"',
   PRIMARY KEY (`ope_id`),
   INDEX `acc_id_deb_idx` (`acc_id_deb` ASC),
   INDEX `acc_id_cred_idx` (`acc_id_cred` ASC),

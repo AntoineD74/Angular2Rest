@@ -303,6 +303,33 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
       });
   });
 
+  router.get("/accounts/all",function(req,res){
+    console.log("je suis dans accounts/all");
+      jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+      console.log("error" + err);
+      console.log("decode" + decoded);
+      if(err){
+        res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+      }else{
+          if(decoded.role == 0){
+            var query = "SELECT ??, ??, ??, ?? FROM ?? AS ?? JOIN ?? AS ?? ON ?? = ??";
+            var table = ["usr_name", "usr_firstname", "acc_id", "acc_type", "users_usr", "u", "accounts_acc", "a", "a.usr_id", "u.usr_id"];
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results,fields){
+                if(err) {
+                    res.json({"Error" : true, "Message" : err.code });
+                    console.log(err.message);
+                } else {
+                    res.json({"Error" : false, "Message" : "Success", "Accounts" : results});
+                    console.log(results);
+                }
+            });
+          }
+        }
+      });
+    });
+
     router.get("/accounts/:user_id",function(req,res){
         console.log("JE suis dans account/id")
         jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
@@ -329,32 +356,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
-    router.get("/accounts/all",function(req,res){
-      console.log("je suis dans accounts/all");
-        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
-        console.log("error" + err);
-        console.log("decode" + decoded);
-        if(err){
-          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
-        }else{
-            if(decoded.role == 0){
-              var query = "SELECT ??, ??, ??, ?? FROM ?? AS ?? JOIN ?? AS ?? ON ?? = ?? WHERE ?? != ?";
-              var table = ["usr_name", "usr_firstname", "acc_id, acc_type", "user_usr", "u", "accounts_acc", "a", "a.usr_id", "u.usr_id", "a.usr_id", decoded.id];
-              query = mysql.format(query,table);
-              console.log(query);
-              connection.query(query,function(err,results,fields){
-                  if(err) {
-                      res.json({"Error" : true, "Message" : err.code });
-                      console.log(err.message);
-                  } else {
-                      res.json({"Error" : false, "Message" : "Success", "Accounts" : results});
-                      console.log(results);
-                  }
-              });
-            }
-          }
-        });
-      });
+
 
 }
 

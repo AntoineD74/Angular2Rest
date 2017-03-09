@@ -26,8 +26,6 @@
          <a md-list-item *ngIf="role == 0" [routerLink]="['/accounts']">Mes comptes</a>
          <a md-list-item *ngIf="role >= 1" [routerLink]="['/clients']">Mes clients</a>
          <a md-list-item *ngIf="role == 2" [routerLink]="['/users']">Utilisateurs</a>
-         <a md-list-item *ngIf="role == 2" [routerLink]="['/accounts']">Clients</a>
-         <a md-list-item *ngIf="role == 2" [routerLink]="['/accounts']">Conseillers</a>
       </md-nav-list>
     </md-sidenav>
     <router-outlet></router-outlet>

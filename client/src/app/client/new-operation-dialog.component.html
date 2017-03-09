@@ -1,0 +1,16 @@
+<h1 md-dialog-title>Virement</h1>
+<md-dialog-content>
+  <md-input-container class="dial-input-container">
+     <input type="text" mdInput [mdAutocomplete]="auto" >
+  </md-input-container>
+
+  <md-autocomplete #auto="mdAutocomplete">
+     <md-option (click)="selectAccount(acc.id)" *ngFor="let acc of accounts" [value]="acc.getString()">
+        {{ acc.getString() }}
+     </md-option>
+  </md-autocomplete>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button color="primary">Valider</button>
+  <button md-button md-dialog-close>Annuler</button>
+</md-dialog-actions>

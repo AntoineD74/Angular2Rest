@@ -17,3 +17,23 @@ export class Account {
     public type: number
   ) {  }
 }
+
+export class SearchAccount{
+  constructor(
+    public id: number,
+    public name: string,
+    public firstname: string,
+    public type: number,
+  ) {  }
+
+  public getString():string{
+    let str:string = "";
+    str = this.name+' '+this.firstname+', ';
+    if(this.type == 0){
+      str += "Compte chèques";
+    }else{
+      str += "Livret A";
+    }
+    return str;
+  }
+}

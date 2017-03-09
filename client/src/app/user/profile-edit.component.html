@@ -1,10 +1,10 @@
 <div class="w3-panel">
-  <div class="w3-row">
-    <div class="w3-col s10 m8 l6 centered">
-      <div class="w3-container w3-center w3-white w3-border w3-border-purple shadow">
-        <h1 class = "w3-light-grey">
-          Editer vos informations
-        </h1>
+  <h1>
+    Editer vos informations
+  </h1>
+  <div class="w3-container">
+    <md-card>
+      <md-card-content>
         <form (ngSubmit)="onSubmit()" novalidate #usrForm="ngForm">
           <div class="form-group">
             <md-input-container>
@@ -58,7 +58,7 @@
             <br/>
           </div>
         </form>
-      </div>
-    </div>
+      </md-card-content>
+    </md-card>
   </div>
 </div>
