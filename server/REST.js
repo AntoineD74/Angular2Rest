@@ -195,9 +195,9 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         if(err){
           res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
         }else{
-            if(decoded.usr_role > 1){
+            if(decoded.role > 1){
               console.log("num role ---->" +decoded.usr_role)
-              var query = "SELECT * FROM ?? ";
+              var query = "SELECT * FROM ??";
               var table = ["users_usr"];
               query = mysql.format(query,table);
               console.log(query);
@@ -210,6 +210,8 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                       console.log(results);
                   }
               });
+            }else{
+              res.json({"Error" : true, "Code" : "UNAUTHORIZED_QUERY" });
             }
           }
         });
@@ -318,15 +320,13 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                     res.json({"Error" : true, "Message" : err.code });
                     console.log(err.message);
                 } else {
-                    res.json({"Error" : false, "Message" : "Success", "Users" : results});
+                    res.json({"Error" : false, "Message" : "Success", "Accounts" : results});
                     console.log(results);
                 }
             });
-
         }
         });
     });
-
 }
 
 module.exports = REST_ROUTER;

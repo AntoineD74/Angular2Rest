@@ -1,25 +1,25 @@
 <div class="w3-panel">
-  <div class="w3-row">
-    <div class="w3-col s10 m8 l6 centered">
-      <div class="w3-container w3-center w3-white w3-border w3-border-purple shadow">
-        <h1 class = "w3-light-grey">
-          Bienvenue !
-        </h1>
-        <p *ngIf="!isLoggedIn()">
-          Vous n'êtes pas connecté !
-          <br />
-          <br />
-          Pour profiter des fonctionnalités du projet,
-          veuillez-vous <a class="w3-text-purple" [routerLink]="['/signin']">connecter</a> ou <a class="w3-text-purple" [routerLink]="['/signup']">créer un compte</a> !
-        </p>
-        <p *ngIf="isLoggedIn()">
-          Vous êtes connecté !
-          <br />
-          <br />
-          Accedez à l'onglet <a class="w3-text-purple" [routerLink]="['/']">Mes comptes</a> ou
-          <a class="w3-text-purple" [routerLink]="['/']">Mes opérations</a> !
-        </p>
-      </div>
-    </div>
-  </div>
+  <md-card>
+    <md-card-title>
+      <h1>
+        Bienvenue !
+      </h1>
+    </md-card-title>
+    <md-card-content>
+      <p *ngIf="!isLoggedIn()">
+        Vous n'êtes pas connecté !
+        <br />
+        <br />
+        Pour profiter des fonctionnalités du projet,
+        veuillez-vous <a class="w3-text-purple" [routerLink]="['/signin']">connecter</a> ou <a class="w3-text-purple" [routerLink]="['/signup']">créer un compte</a> !
+      </p>
+      <p *ngIf="isLoggedIn()">
+        Vous êtes connecté !
+        <br />
+        <br />
+        Accedez à l'onglet <a class="w3-text-purple" [routerLink]="['/']">Mes comptes</a> ou
+        <a class="w3-text-purple" [routerLink]="['/']">Mes opérations</a> !
+      </p>
+    </md-card-content>
+  </md-card>
 </div>

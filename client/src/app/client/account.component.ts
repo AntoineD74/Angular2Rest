@@ -10,4 +10,8 @@ import { Account, Operation } from '../models/account';
 export class AccountComponent{
   @Input()
   account:  Account;
+
+  addNewTransaction(){
+
+  }
 }

@@ -1,7 +1,53 @@
-<h1>Tous les utilisateurs</h1>
-<div class="w3-container">
-  <md-card *ngFor="let usr of users">
-    <md-card-title>{{usr.firstname}} {{usr.name}}</md-card-title>
+<div class="w3-panel">
+  <h1>Tous les utilisateurs</h1>
+  <div *ngFor="let usr of users" class="w3-container">
+    <md-card>
+      <md-card-title>
+        {{usr.firstname}} {{usr.name}}
+        <div *ngIf="usr.role == 0" class="value-profile w3-right-align">
+          Client
+        </div>
+        <div *ngIf="usr.role == 1" class="value-profile w3-right-align">
+          Conseiller
+        </div>
+        <div *ngIf="usr.role == 2" class="value-profile w3-right-align">
+          Admin
+        </div>
+      </md-card-title>
+      <md-card-content>
+        <div class="w3-container">
+          <label>Mail</label>
+          <div class="value-profile w3-leftbar w3-right-align w3-border-purple">
+            {{usr.mail}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Adresse</label>
+          <div class="value-profile w3-leftbar w3-right-align w3-border-purple">
+            {{usr.addr}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Code Postal</label>
+          <div class="value-profile w3-leftbar w3-right-align w3-border-purple">
+            {{usr.postalcode}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Ville</label>
+          <div class="value-profile w3-leftbar w3-right-align w3-border-purple">
+            {{usr.city}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Télephone</label>
+          <div class="value-profile w3-leftbar w3-right-align w3-border-purple">
+            0{{usr.phone}}
+          </div>
+        </div>
+      </md-card-content>
+      <br />
+    </md-card>
     <br />
-  </md-card>
+  </div>
 </div>
