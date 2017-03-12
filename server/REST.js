@@ -356,6 +356,54 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
+    router.post("/operations/new",function(req,res){
+      console.log("JE suis dans operations/new")
+      //console.log(req.rawHeaders);
+      console.log(getToken(req.rawHeaders));
+      jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+          console.log("Token OK");
+          var ope = req.body;
+          var query = "INSERT INTO ?? (??, ??, ??, ??, ??) VALUES (?, ?, ?, now(), ?)";
+          console.log(req.body);
+          var credid;
+          credid = ope.idcred;
+          if(credid == -1){
+            credid = NULL;
+          }
+          var table =
+            [
+              "operations_ope",
+              "acc_id_deb",
+              "acc_id_cred",
+              "ope_montant",
+              "ope_date",
+              "ope_desc",
+              ope.iddeb,
+              credid,
+              ope.montant,
+              ope.libelle
+            ];
+          query = mysql.format(query,table);
+          console.log(query);
+          connection.query(query,function(err,results){
+              if(err) {
+                  res.json({"Error" : true, "Code" : err.code, "Message" : err.message});
+                  console.log(err.message);
+              } else {
+                  res.json({"Error" : false, "Message" : "User Updated !"});
+                  console.log("Transaction added");
+              }
+          });
+        }
+      });
+    });
+
+
 
 
 }

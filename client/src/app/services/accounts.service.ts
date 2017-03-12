@@ -11,6 +11,7 @@ import { AuthenticationService } from './authentication.service';
 @Injectable()
 export class AccountsService {
   private accountsUrl = 'http://localhost:3000/api/accounts';  // URL to web API
+  private opesUrl = 'http://localhost:3000/api/operations';  // URL to web API
   constructor (
     private http: Http,
     private authService: AuthenticationService
@@ -35,9 +36,10 @@ export class AccountsService {
 
   addTransaction(ope:Operation){
     let headers = new Headers({ 'Authorization': this.authService.token });
-    let options = new RequestOptions({ headers: headers });
+    headers.append('Content-Type', 'application/json');
     let that = this;
-    return this.http.get(that.accountsUrl+'/', options)
+    let body = JSON.stringify(ope);
+    return this.http.post(that.opesUrl+'/new', body, {headers : headers})
             .map((response: Response) => response.json());
   }
 

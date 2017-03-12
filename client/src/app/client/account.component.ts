@@ -13,6 +13,8 @@ import { AccountsService } from '../services/accounts.service';
 export class AccountComponent{
   @Input()
   account:  Account;
+  nbactions = 0;
+
   constructor
     (
       public dialog: MdDialog
@@ -20,6 +22,14 @@ export class AccountComponent{
 
   newOperation(id){
     this.dialog.open(NewOperationDialog, {width : '500px', data : { "id" : id } });
+  }
+
+  buyActions(){
+    if(this.account.type == 1){
+      if(this.nbactions * 10 < this.account.solde){
+
+      }
+    }
   }
 }
 
@@ -35,17 +45,55 @@ export class NewOperationDialog implements OnInit
   accounts: SearchAccount[];
   filteredAccounts: SearchAccount[];
 
-  selectedid;
+  newOperation: Operation;
+
+  selectedid = -1;
+  usrInput="";
 
   selectAccount(id){
     this.selectedid = id;
     console.log("Compte sélectionné id "+id);
   }
 
+  filterAccs(newValue){
+    console.log("Filter ON");
+    this.filteredAccounts = [];
+    let regexp = new RegExp(newValue);
+    for(let acc in this.accounts){
+      if(regexp.test(this.accounts[acc].getString()) && this.accounts[acc].id != this.dialogRef.config.data.id){
+        this.filteredAccounts.push(this.accounts[acc]);
+      }
+    }
+    console.log(this.filteredAccounts);
+  }
+
+  onSubmit(){
+    let error = false;
+    let that = this;
+    console.log("Submitting transaction");
+    console.log(this.newOperation);
+    if(this.selectedid != -1){
+      this.newOperation.idcred = this.selectedid;
+      if(this.newOperation.montant > 0 && this.selectedid != -1){
+      console.log(this.newOperation);
+        this.accService.addTransaction(this.newOperation)
+          .subscribe(
+            function(response){
+              if(!response.Error){
+                that.dialogRef.close();
+              }
+            }
+          )
+      }
+    }
+
+  }
+
   ngOnInit(){
     console.log("Init Operation Dialog");
     console.log(this.dialogRef.config.data.id);
     let that = this;
+    this.newOperation = new Operation(-1,"",0,-1,this.dialogRef.config.data.id,"");
     this.accService.searchAccounts()
       .subscribe
       (
@@ -60,6 +108,7 @@ export class NewOperationDialog implements OnInit
               that.accounts[acc].type = response.Accounts[acc].acc_type;
               that.accounts[acc].id = response.Accounts[acc].acc_id;
             }
+            that.filterAccs("");
           }
         }
       )

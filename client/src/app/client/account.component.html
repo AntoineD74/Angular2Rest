@@ -19,10 +19,17 @@
       <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
         {{account.actions}}
       </div>
+      <div class="w3-container w3-right-align">
+        <md-input-container>
+          <span mdPrefix>Acheter des actions "Pomme" (10€) :</span>
+          <input type="number" [(ngModel)]="nbactions" placeholder="Nombre" mdInput >
+        </md-input-container>
+        <button color="primary" md-button>Acheter</button>
+      </div>
     </div>
   </md-card-content>
   <md-card-actions>
-    <button md-button (click)="newOperation(account.id)"><md-icon>add</md-icon> Virement</button>
+    <button md-button color="primary" (click)="newOperation(account.id)"><md-icon>add</md-icon> Virement</button>
   </md-card-actions>
 </md-card>
 <br />

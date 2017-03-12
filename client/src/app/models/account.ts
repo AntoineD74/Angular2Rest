@@ -4,7 +4,8 @@ export class Operation {
     public date: string,
     public montant: number,
     public idcred: number,
-    public iddeb: number
+    public iddeb: number,
+    public libelle:string
   ) {  }
 }
 

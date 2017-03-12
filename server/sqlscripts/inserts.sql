@@ -49,9 +49,34 @@ NULL
 "69007",
 "Lyon",
 "688995544",
-1,
+0,
 1
-);
+),
+(
+4,
+"baba@test.fr",
+"test01",
+"Kasse",
+"Baba",
+"27 rue Raoul Servant",
+"69007",
+"Lyon",
+"685785544",
+0,
+1
+),
+(
+5,
+"dreams@test.fr",
+"test01",
+"Your",
+"Dreams",
+"404 Not Found",
+"69007",
+"Your Mind",
+"688995544",
+0,
+2);
 
 INSERT INTO `dashboard`.`accounts_acc`
 (
@@ -74,7 +99,33 @@ DATE(now()),
 DATE(now()),
 120000,
 1,
-20);
+55),
+(
+4,
+DATE(now()),
+18000,
+0,
+0
+), 
+(
+4,
+DATE(now()),
+40000,
+1,
+0),
+(
+5,
+DATE(now()),
+45000,
+0,
+0
+), 
+(
+5,
+DATE(now()),
+250000,
+1,
+100);
 
 
 

@@ -12,4 +12,6 @@ export class User {
     public id:number
   ) {  }
 
+  public expanded = false;
+
 }
