@@ -6,18 +6,21 @@
      <md-hint align="end">Sélectionner un compte dans la liste</md-hint>
   </md-input-container>
   <br />
-  <md-input-container class="dial-input-container">
-    <input type="text" [(ngModel)]="newOperation.libelle" placeholder="Libellé" mdInput >
-  </md-input-container>
-  <md-input-container class="dial-input-container">
-    <input type="number" [(ngModel)]="newOperation.montant" placeholder="Montant" mdInput >
-    <span mdSuffix>€</span>
-  </md-input-container>
   <md-autocomplete #auto="mdAutocomplete">
      <md-option (click)="selectAccount(acc.id)" *ngFor="let acc of filteredAccounts" [value]="acc.getString()">
         {{ acc.getString() }}
      </md-option>
   </md-autocomplete>
+  <div *ngIf="selectedid != -1">
+    <md-input-container class="dial-input-container">
+      <input type="text" [(ngModel)]="newOperation.libelle" placeholder="Libellé" mdInput >
+    </md-input-container>
+    <md-input-container class="dial-input-container">
+      <input type="number" [(ngModel)]="newOperation.montant" placeholder="Montant" mdInput >
+      <span mdSuffix>€</span>
+    </md-input-container>
+  </div>
+
 </md-dialog-content>
 <md-dialog-actions>
   <button type="submit" (click)="onSubmit()" md-button color="primary">Valider</button>

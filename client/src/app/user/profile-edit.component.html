@@ -6,7 +6,7 @@
     <md-card>
       <md-card-content>
         <form (ngSubmit)="onSubmit()" novalidate #usrForm="ngForm">
-          <div class="form-group">
+          <div class="form-group w3-center">
             <md-input-container>
               <input type="email" pattern="^.{3,}@.{3,}\.[a-z]{2,4}$" id="mail" mdInput class="form-control" [(ngModel)]="user.mail" name="mail" required placeholder="Votre mail" #mail="ngModel">
               <md-hint *ngIf="!mail.valid && !mail.pristine" align="end" class="w3-text-red">Mail invalide</md-hint>

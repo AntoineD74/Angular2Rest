@@ -17,17 +17,31 @@ export class AccountComponent{
 
   constructor
     (
-      public dialog: MdDialog
+      public dialog: MdDialog,
+      private accService: AccountsService
     ){}
 
   newOperation(id){
-    this.dialog.open(NewOperationDialog, {width : '500px', data : { "id" : id } });
+    let dialogref = this.dialog.open(NewOperationDialog, {width : '500px', data : { "id" : id } });
+    dialogref.afterClosed().subscribe(result => {
+      //this.selectedOption = result;
+      window.location.reload();
+    });
   }
 
   buyActions(){
+    let that = this;
     if(this.account.type == 1){
-      if(this.nbactions * 10 < this.account.solde){
-
+      if(this.nbactions * 10 < this.account.solde && this.nbactions > 0){
+        let ope = new Operation(-1, "", this.nbactions * 10, -1,this.account.id, "Achat d'actions");
+        this.accService.buyActions(ope)
+          .subscribe(
+            function(response){
+              if(!response.Error){
+                window.location.reload();
+              }
+            }
+          );
       }
     }
   }
@@ -40,7 +54,10 @@ export class AccountComponent{
 })
 export class NewOperationDialog implements OnInit
 {
-  constructor(public dialogRef: MdDialogRef<NewOperationDialog>, private accService: AccountsService){}
+  constructor(
+    public dialogRef: MdDialogRef<NewOperationDialog>,
+    private accService: AccountsService
+  ){}
 
   accounts: SearchAccount[];
   filteredAccounts: SearchAccount[];
@@ -64,6 +81,7 @@ export class NewOperationDialog implements OnInit
         this.filteredAccounts.push(this.accounts[acc]);
       }
     }
+    this.selectedid = -1;
     console.log(this.filteredAccounts);
   }
 
@@ -80,10 +98,10 @@ export class NewOperationDialog implements OnInit
           .subscribe(
             function(response){
               if(!response.Error){
-                that.dialogRef.close();
+                that.dialogRef.close(that.newOperation);
               }
             }
-          )
+          );
       }
     }
 

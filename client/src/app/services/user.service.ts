@@ -65,4 +65,13 @@ export class UserService {
                     .map(res => res.json());
   }
 
+  associate(asso){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify(asso);
+    return this.http.post('http://localhost:3000/api/associate', body, {headers : headers})
+                    .map(res => res.json());
+  }
+
 }

@@ -71,3 +71,8 @@ html, body, material-app, md-sidenav-container, .my-content {
 .right{
   float:right;
 }
+
+.operations-list{
+  max-height: 200px;
+  overflow-y: scroll;
+}

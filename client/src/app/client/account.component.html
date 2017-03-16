@@ -5,7 +5,7 @@
     <div class="w3-container">
       <label>Date d'ouverture</label>
       <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
-        {{account.date}}
+        {{account.date | date}}
       </div>
     </div>
     <div class="w3-container">
@@ -24,8 +24,11 @@
           <span mdPrefix>Acheter des actions "Pomme" (10€) :</span>
           <input type="number" [(ngModel)]="nbactions" placeholder="Nombre" mdInput >
         </md-input-container>
-        <button color="primary" md-button>Acheter</button>
+        <button color="primary" (click)="buyActions()" md-button>Acheter</button>
       </div>
+    </div>
+    <div class="w3-container">
+      <account-operations [accid]="account.id"></account-operations>
     </div>
   </md-card-content>
   <md-card-actions>

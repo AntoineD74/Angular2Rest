@@ -1,0 +1,15 @@
+
+<h4>Opérations du compte</h4>
+<md-list class="operations-list">
+  <md-list-item *ngFor="let ope of operations">
+    <h5 md-line>{{ope.date | date}} - {{ope.date | date:'mediumTime'}}</h5>
+    <p md-line class="w3-green" *ngIf="accid == ope.idcred">
+      <span>{{ope.libelle}}</span>
+      <span>+ {{ope.montant}}€</span>
+    </p>
+    <p md-line class="w3-red" *ngIf="accid == ope.iddeb">
+      <span>{{ope.libelle}}</span>
+      <span>- {{ope.montant}}€</span>
+    </p>
+  </md-list-item>
+</md-list>

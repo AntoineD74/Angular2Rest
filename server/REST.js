@@ -339,7 +339,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
           res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
         }else{
             var query = "SELECT * FROM ?? WHERE ?? = ?";
-            var table = ["accounts_acc", "usr_id", decoded.id];
+            var table = ["accounts_acc", "usr_id", req.params.user_id];
             query = mysql.format(query,table);
             console.log(query);
             connection.query(query,function(err,results,fields){
@@ -370,11 +370,6 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
           var ope = req.body;
           var query = "INSERT INTO ?? (??, ??, ??, ??, ??) VALUES (?, ?, ?, now(), ?)";
           console.log(req.body);
-          var credid;
-          credid = ope.idcred;
-          if(credid == -1){
-            credid = NULL;
-          }
           var table =
             [
               "operations_ope",
@@ -384,27 +379,193 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
               "ope_date",
               "ope_desc",
               ope.iddeb,
-              credid,
+              ope.idcred,
               ope.montant,
               ope.libelle
             ];
+          var error = false;
           query = mysql.format(query,table);
           console.log(query);
           connection.query(query,function(err,results){
               if(err) {
-                  res.json({"Error" : true, "Code" : err.code, "Message" : err.message});
-                  console.log(err.message);
-              } else {
-                  res.json({"Error" : false, "Message" : "User Updated !"});
-                  console.log("Transaction added");
+                  error = true;
               }
           });
+          if(!err){
+            var query = "UPDATE ?? SET ??=??-? WHERE ?? = ?";
+            var table =
+              [
+                "accounts_acc",
+                "acc_solde",
+                "acc_solde",
+                ope.montant,
+                "acc_id",
+                ope.iddeb
+              ];
+            var error = false;
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results){
+                if(err) {
+                    error = true;
+                }
+            });
+          }
+          if(!err){
+            var query = "UPDATE ?? SET ??=??+? WHERE ?? = ?";
+            var table =
+              [
+                "accounts_acc",
+                "acc_solde",
+                "acc_solde",
+                ope.montant,
+                "acc_id",
+                ope.idcred
+              ];
+            var error = false;
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results){
+                if(err) {
+                    error = true;
+                }
+            });
+          }
+          if(err){
+            res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+          }else{
+            res.json({"Error" : false, "Code" : "TRANSACTION_ADDED"});
+          }
+
         }
       });
     });
 
+    router.post("/operations/actions",function(req,res){
+      console.log("JE suis dans operations/actions")
+      //console.log(req.rawHeaders);
+      console.log(getToken(req.rawHeaders));
+      jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+          console.log("Token OK");
+          var ope = req.body;
+          var query = "INSERT INTO ?? (??, ??, ??, ??, ??) VALUES (?, NULL, ?, now(), ?)";
+          console.log(req.body);
+          var table =
+            [
+              "operations_ope",
+              "acc_id_deb",
+              "acc_id_cred",
+              "ope_montant",
+              "ope_date",
+              "ope_desc",
+              ope.iddeb,
+              ope.montant,
+              ope.libelle
+            ];
+          var error = false;
+          query = mysql.format(query,table);
+          console.log(query);
+          connection.query(query,function(err,results){
+              if(err) {
+                  error = true;
+              }
+          });
+          if(!err){
+            var query = "UPDATE ?? SET ??=??-?, ??=??+? WHERE ?? = ?";
+            var table =
+              [
+                "accounts_acc",
+                "acc_solde",
+                "acc_solde",
+                ope.montant,
+                "acc_actions",
+                "acc_actions",
+                ope.montant/10,
+                "acc_id",
+                ope.iddeb
+              ];
+            var error = false;
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results){
+                if(err) {
+                    error = true;
+                }
+            });
+          }
+          if(err){
+            res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+          }else{
+            res.json({"Error" : false, "Code" : "TRANSACTION_ADDED"});
+          }
 
+        }
+      });
+    });
 
+    router.get("/operations/:acc_id",function(req,res){
+        console.log("JE suis dans operations/:acc_id")
+        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+            var query = "SELECT * FROM (SELECT * FROM ?? WHERE ?? = ? UNION SELECT * FROM ?? WHERE ?? = ?) as ?? ORDER by ?? desc";
+            var table = ['operations_ope','acc_id_deb',req.params.acc_id,'operations_ope','acc_id_cred',req.params.acc_id,'a','a.ope_date'];
+            query = mysql.format(query,table);
+            console.log(query);
+            connection.query(query,function(err,results,fields){
+                if(err) {
+                    res.json({"Error" : true, "Message" : err.code });
+                    console.log(err.message);
+                } else {
+                    res.json({"Error" : false, "Message" : "Success", "Operations" : results});
+                    console.log(results);
+                }
+            });
+
+        }
+        });
+    });
+
+    router.post("/associate",function(req,res){
+        console.log("JE suis dans associate")
+        jwt.verify(getToken(req.rawHeaders), config.tokenKey, function(err, decoded) {
+        console.log(err);
+        console.log(decoded);
+        if(err){
+          res.json({"Error" : true, "Code" : "JWT_EXPIRED"});
+        }else{
+            if(decoded.role == 2){
+                var query = "UPDATE ?? SET ??=? WHERE ?? = ?";
+                var table = ['users_usr', 'usr_counselorid', req.body.cslId, "usr_id", req.body.cliId];
+                query = mysql.format(query,table);
+                console.log(query);
+                connection.query(query,function(err,results,fields){
+                    if(err) {
+                        res.json({"Error" : true, "Message" : err.code });
+                        console.log(err.message);
+                    } else {
+                        res.json({"Error" : false, "Message" : "Success"});
+                        console.log(results);
+                    }
+                });
+            }
+            else{
+                res.json({
+                    "Error": true,
+                    "Code": "UNAUTHORIZED_QUERY"
+                });
+            }
+        }
+        });
+      });
 
 }
 

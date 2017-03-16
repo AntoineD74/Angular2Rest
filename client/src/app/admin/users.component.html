@@ -1,5 +1,5 @@
 <div class="w3-panel">
-  <h1>Tous les utilisateurs <span class="w3-right-align right"><button md-button>Associer un client <md-icon>add</md-icon></button></span></h1>
+  <h1>Tous les utilisateurs <span class="w3-right-align right"><button (click)="associateUsers()" md-button>Associer un client <md-icon>add</md-icon></button></span></h1>
   <div *ngFor="let usr of users" class="w3-container">
     <md-card>
       <md-card-title>
@@ -46,7 +46,6 @@
           </div>
         </div>
       </md-card-content>
-      <br />
     </md-card>
     <br />
   </div>

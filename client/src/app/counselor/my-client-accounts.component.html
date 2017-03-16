@@ -1,0 +1,33 @@
+<div class="w3-panel">
+  <h1>Comptes du client</h1>
+  <div class="w3-container" *ngFor="let acc of accounts">
+    <md-card>
+      <md-card-title *ngIf="acc.type == 0">Compte chèques</md-card-title>
+      <md-card-title *ngIf="acc.type == 1">Livret A</md-card-title>
+      <md-card-content>
+        <div class="w3-container">
+          <label>Date d'ouverture</label>
+          <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+            {{acc.date | date}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <label>Solde</label>
+          <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+            {{acc.solde}}€
+          </div>
+        </div>
+        <div *ngIf="acc.type == 1" class="w3-container">
+          <label>Actions "Pomme"</label>
+          <div class="value-profile w3-leftbar w3-border-purple w3-right-align">
+            {{acc.actions}}
+          </div>
+        </div>
+        <div class="w3-container">
+          <account-operations [accid]="acc.id"></account-operations>
+        </div>
+      </md-card-content>
+    </md-card>
+    <br />
+  </div>
+</div>

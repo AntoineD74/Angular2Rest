@@ -1,0 +1,28 @@
+<h1 md-dialog-title>Associer un conseiller</h1>
+<md-dialog-content>
+  <md-input-container class="dial-input-container">
+     <input type="text" placeholder="Conseiller" [ngModel]="usrInputCsl" (ngModelChange)="filterCounselors($event)" mdInput [mdAutocomplete]="cslauto" >
+     <md-hint align="end">Sélectionner un conseiller dans la liste</md-hint>
+  </md-input-container>
+
+  <md-autocomplete #cslauto="mdAutocomplete">
+     <md-option (click)="selectCounselor(usr.id)" *ngFor="let usr of filteredCounselors" [value]="usr.name+' '+usr.firstname">
+        {{usr.name}} {{usr.firstname}}
+     </md-option>
+  </md-autocomplete>
+  <br />
+  <md-input-container class="dial-input-container">
+     <input type="text" placeholder="Client" [ngModel]="usrInputCli" (ngModelChange)="filterClients($event)" mdInput [mdAutocomplete]="cliauto" >
+     <md-hint align="end">Sélectionner un client dans la liste</md-hint>
+  </md-input-container>
+
+  <md-autocomplete #cliauto="mdAutocomplete">
+     <md-option (click)="selectClient(usr.id)" *ngFor="let usr of filteredClients" [value]="usr.name+' '+usr.firstname">
+        {{usr.name}} {{usr.firstname}}
+     </md-option>
+  </md-autocomplete>
+</md-dialog-content>
+<md-dialog-actions>
+  <button type="submit" (click)="onSubmit()" md-button color="primary">Valider</button>
+  <button md-button md-dialog-close>Annuler</button>
+</md-dialog-actions>

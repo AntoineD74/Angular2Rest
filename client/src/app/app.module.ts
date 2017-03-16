@@ -16,10 +16,12 @@ import { ProfileEditComponent, ProfileEditDialog } from './user/profile-edit.com
 
 import { AccountsComponent } from './client/accounts.component';
 import { AccountComponent, NewOperationDialog } from './client/account.component';
+import { AccountOperationsComponent } from './client/account-operations.component';
 
 import { MyClientsComponent } from './counselor/my-clients.component';
+import { MyClientAccountsComponent } from './counselor/my-client-accounts.component';
 
-import { UsersComponent } from './admin/users.component';
+import { UsersComponent, AssociateUserDialog } from './admin/users.component';
 
 import { UserService } from './services/user.service';
 import { AccountsService } from './services/accounts.service';
@@ -51,6 +53,10 @@ const appRoutes: Routes = [
     component: AccountsComponent
   },
   {
+    path: 'client/accounts/:id',
+    component: MyClientAccountsComponent
+  },
+  {
     path: 'clients',
     component: MyClientsComponent
   },
@@ -77,9 +83,12 @@ const appRoutes: Routes = [
     ProfileEditDialog,
     AccountsComponent,
     AccountComponent,
+    AccountOperationsComponent,
     NewOperationDialog,
     MyClientsComponent,
-    UsersComponent
+    MyClientAccountsComponent,
+    UsersComponent,
+    AssociateUserDialog
   ],
   imports: [
     BrowserModule,
@@ -96,7 +105,8 @@ const appRoutes: Routes = [
   entryComponents: [
     SignupDialog,
     ProfileEditDialog,
-    NewOperationDialog
+    NewOperationDialog,
+    AssociateUserDialog
   ],
   bootstrap: [AppComponent]
 })

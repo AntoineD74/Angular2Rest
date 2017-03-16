@@ -4,9 +4,6 @@
     <md-card>
       <md-card-title>
         {{usr.firstname}} {{usr.name}}
-        <div class="w3-text-right">
-          <button md-icon-button (click)="getAccounts(usr.id)"><md-icon>add</md-icon></button>
-        </div>
       </md-card-title>
       <md-card-content>
         <div class="w3-container">
@@ -40,6 +37,10 @@
           </div>
         </div>
       </md-card-content>
+      <md-card-actions>
+        <button md-button [routerLink]="['/client/accounts', usr.id]">Voir les comptes</button>
+
+      </md-card-actions>
     </md-card>
     <br />
   </div>

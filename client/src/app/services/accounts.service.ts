@@ -43,11 +43,20 @@ export class AccountsService {
             .map((response: Response) => response.json());
   }
 
-  getMyOperations(acc_id){
+  buyActions(ope:Operation){
+    let headers = new Headers({ 'Authorization': this.authService.token });
+    headers.append('Content-Type', 'application/json');
+    let that = this;
+    let body = JSON.stringify(ope);
+    return this.http.post(that.opesUrl+'/actions', body, {headers : headers})
+            .map((response: Response) => response.json());
+  }
+
+  getOperations(acc_id){
     let headers = new Headers({ 'Authorization': this.authService.token });
     let options = new RequestOptions({ headers: headers });
     let that = this;
-    return this.http.get(that.accountsUrl, options)
+    return this.http.get(that.opesUrl+'/'+acc_id, options)
             .map((response: Response) => response.json());
   }
 
